@@ -12,19 +12,19 @@ const BaseUrl = "https://www.hepsiburada.com"
 const DiscountUrl = BaseUrl + "/gunun-firsati-teklifi"
 
 type DiscountItem struct {
-	imgUrl string
-	url string
-	name string
+	imgUrl       string
+	url          string
+	name         string
 	currentPrice string
-	oldPrice string // * default string
+	oldPrice     string // * default string
 }
 
-func hepsiburada(){
+func hepsiburada() {
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", DiscountUrl, nil)
 	req.Header = http.Header{
-		"user-agent":  []string{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"},
+		"user-agent": []string{"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"},
 	}
 
 	if err != nil {
@@ -59,7 +59,7 @@ func hepsiburada(){
 				item.oldPrice = link.Find("del", "class", "product-old-price").Text()
 			}
 
-			products = append(products,item)
+			products = append(products, item)
 		}
 	}
 
@@ -67,12 +67,10 @@ func hepsiburada(){
 
 }
 
-// This is normal text - <b>and this is bold text</b>.\n<a href=\"https://www.carspecs.us/photos/c8447c97e355f462368178b3518367824a757327-2000.jpg\">test</a>
 func buildAndSendMessages(products []DiscountItem) {
 	for _, product := range products {
-		message := fmt.Sprintf("<a href=\"%s\">%s</a>\n<del>%s</del>\n<b>%s</b>", product.url,product.name,product.oldPrice, product.currentPrice)
-		//println(product.name)
+		message := fmt.Sprintf("<a href=\"%s\">%s</a>\n<del>%s</del>\n<b>%s</b>", product.url, product.name, product.oldPrice, product.currentPrice)
+
 		notify(message, product.imgUrl)
-		break
 	}
 }

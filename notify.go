@@ -11,10 +11,10 @@ import (
 
 func notify(message string, imgUrl string) string {
 	postBody, _ := json.Marshal(map[string]string{
-		"chat_id" : "-720855660",
+		"chat_id":    os.Getenv("CHAT_ID"),
 		"parse_mode": "HTML",
-		"photo": imgUrl,
-		"caption": message,
+		"photo":      imgUrl,
+		"caption":    message,
 	})
 
 	responseBody := bytes.NewBuffer(postBody)
