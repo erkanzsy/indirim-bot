@@ -16,7 +16,7 @@ type DiscountItem struct {
 	url          string
 	name         string
 	currentPrice string
-	oldPrice     string // * default string
+	oldPrice     string
 }
 
 func hepsiburada() {
