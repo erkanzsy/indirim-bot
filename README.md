@@ -4,7 +4,7 @@
 
 
 ```text
-make setup
+make build
 ```
 
 ```text
